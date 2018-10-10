@@ -30,8 +30,11 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
   Given I am on the RottenPotatoes home page
-  When I check "PG"
-  And I check "R"
+  When I check the following ratings: "PG", "R"
+  And I uncheck the following ratings: 'G', 'PG-13'
+  And I press "Refresh"
+  Then I should see all movies with ratings: 'PG', 'R'
+  And I should not see all movies with ratings: 'G', 'PG-13'
 
 Scenario: all ratings selected
   # see assignment

@@ -25,18 +25,19 @@ end
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
 
-When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
+When /I (un)?check the following ratings:(.+)/ do |uncheck, rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  if uncheck
-    rating_list.split(",").each { |rating| steps %Q{When I uncheck #{rating}} }
-  else
-    rating_list.split(",").each { |rating| steps %Q{When I check #{rating}} }
-  end
+  rating_list.delete('"\' ').split(',').each { |rating| steps %Q{When I #{uncheck}check "ratings_#{rating}"} }
 end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
   fail "Unimplemented"
+end
+
+Then /^I should (not )?see all movies with ratings:(.+)$/ do |not_see, rating_list|
+  movies = Movie.where(rating: rating_list.delete('"\' ').split(','))
+  movies.each { |movie| steps %Q{I sould #{not_see}see "#{movie.title}"} }
 end
