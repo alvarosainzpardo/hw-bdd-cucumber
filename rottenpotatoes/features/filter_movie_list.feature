@@ -1,5 +1,5 @@
 Feature: display list of movies filtered by MPAA rating
- 
+
   As a concerned parent
   So that I can quickly browse movies appropriate for my family
   I want to see movies matching only certain MPAA ratings
@@ -30,6 +30,8 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
   Given I am on the RottenPotatoes home page
+  When I check "PG"
+  And I check "R"
 
 Scenario: all ratings selected
   # see assignment
