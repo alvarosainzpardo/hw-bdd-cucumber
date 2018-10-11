@@ -32,9 +32,13 @@ When /I (un)?check the following ratings:(.+)/ do |uncheck, rating_list|
   rating_list.delete('"\' ').split(',').each { |rating| steps %Q{When I #{uncheck}check "ratings_#{rating}"} }
 end
 
+When /^I select all ratings$/ do
+  pending
+end
+
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  fail "Unimplemented"
+  pending
 end
 
 Then /^I should (not )?see all movies with ratings:(.+)$/ do |not_see, rating_list|
