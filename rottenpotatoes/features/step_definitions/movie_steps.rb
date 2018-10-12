@@ -33,12 +33,14 @@ When /I (un)?check the following ratings:(.+)/ do |uncheck, rating_list|
 end
 
 When /^I select all ratings$/ do
-  pending
+  all_ratings = Movie.all_ratings
+  steps %Q(When I check the following ratings: #{all_ratings.join(",")})
 end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  pending
+  movies = Movie.all
+  movies.each { |movie| steps %Q{Then I should see "#{movie.title}"} }
 end
 
 Then /^I should (not )?see all movies with ratings:(.+)$/ do |not_see, rating_list|
